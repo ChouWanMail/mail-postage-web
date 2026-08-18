@@ -1,0 +1,1 @@
+(()=>{const nativeFetch=window.fetch.bind(window);window.fetch=(input,init)=>{if(typeof input==='string'&&(input.startsWith('./rates/')||input.startsWith('./zones/')||input.startsWith('./special-rates/')||input.startsWith('./domestic/')||input.startsWith('./spec/')))input='./postage/'+input.slice(2);return nativeFetch(input,init)}})();
