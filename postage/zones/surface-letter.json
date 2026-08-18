@@ -1,0 +1,1 @@
+{"schemaVersion":1,"serviceId":"INTL_SURFACE_LETTER","excludedDestinations":["CN","HK","MO","TW"],"zones":[{"id":"SURFACE_LETTER_ZONE_1","nameZh":"27个特定路向","countries":["AF","AU","BT","BD","BN","KH","FJ","IN","ID","IR","JP","KR","LA","MY","MV","MM","NR","NP","NZ","PK","PG","PH","SG","SB","LK","TH","VN"]},{"id":"SURFACE_LETTER_ZONE_2","nameZh":"其他国际路向","isDefault":true}]}

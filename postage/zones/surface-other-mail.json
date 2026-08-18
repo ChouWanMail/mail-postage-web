@@ -1,0 +1,1 @@
+{"schemaVersion":1,"zoneSetId":"INTL_SURFACE_OTHER_MAIL_DEFAULT","scope":"international","transport":"SURFACE","excludedDestinations":["CN","HK","MO","TW"],"zones":[{"id":"SURFACE_OTHER_ZONE_DEFAULT","nameZh":"普通国际资费","isDefault":true}]}
