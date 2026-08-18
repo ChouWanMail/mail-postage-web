@@ -16,16 +16,17 @@
   <nav class="tabs"><button class="tab active" data-page="domestic">国内</button><button class="tab" data-page="international">国际</button></nav>
 
   <section id="domestic" class="page active">
-    <div class="subtabs"><button class="subtab active" data-panel="dom-other">其他</button><button class="subtab" data-panel="dom-parcel">包裹</button></div>
-    <div id="dom-other" class="panel active">
+    <div class="subtabs"><button class="subtab active" data-panel="dom-letter">函件</button><button class="subtab" data-panel="dom-parcel">包裹</button></div>
+
+    <div id="dom-letter" class="panel active">
       <div class="card">
-        <h2>国内其他邮件</h2>
+        <h2>国内函件</h2>
         <div class="grid">
-          <label>业务<select id="domMail"></select></label>
+          <label>函件种类<select id="domMail"></select></label>
           <label id="domLocalityWrap">本埠 / 外埠<select id="domLocality"><option value="LOCAL">本埠</option><option value="NON_LOCAL">外埠</option></select></label>
           <label id="domWeightWrap">重量（克）<input id="domWeight" type="number" min="0.1" step="0.1" value="20"></label>
         </div>
-        <div class="special-section"><h3>特别业务 <small>可选</small></h3><div id="domSpecials" class="special-list"></div></div>
+        <div class="special-section"><h3>特别业务与资费公示 <small>可选项目参与计算；“仅公示”项目不参与计算</small></h3><div id="domSpecials" class="special-list"></div></div>
         <button class="primary" id="calcDomestic">查询资费</button>
         <div class="result" id="domResult"></div>
       </div>
@@ -35,14 +36,25 @@
       <div class="card">
         <h2>国内包裹</h2>
         <div class="seg"><button class="method active" data-method="ordinary">邮政普通包裹</button><button class="method" data-method="hometown">家乡包裹贴</button></div>
-        <div id="ordinaryFields" class="grid">
-          <label>起寄省<select id="parcelOrigin"></select></label>
-          <label>寄达省<select id="parcelDest"></select></label>
-          <label>重量（kg）<input id="parcelWeight" type="number" min="0.001" max="50" step="0.001" value="1"></label>
-          <label>优惠凭证<select id="parcelDiscount"><option value="">不使用优惠</option></select></label>
+        <div id="ordinaryFields">
+          <div class="grid">
+            <label>起寄省<select id="parcelOrigin"></select></label>
+            <label>寄达省<select id="parcelDest"></select></label>
+            <label>实际重量（kg）<input id="parcelWeight" type="number" min="0.001" max="50" step="0.001" value="1"></label>
+            <label>优惠凭证<select id="parcelDiscount"><option value="">不使用优惠</option></select></label>
+          </div>
+          <div class="dimension-block">
+            <div class="dimension-title">物品体积 <small>可选，单位 cm；泡重 = 长 × 宽 × 高 ÷ 6000</small></div>
+            <div class="dimension-grid">
+              <label>长<input id="parcelLength" type="number" min="0.01" step="0.01" placeholder="可留空"></label>
+              <label>宽<input id="parcelWidth" type="number" min="0.01" step="0.01" placeholder="可留空"></label>
+              <label>高<input id="parcelHeight" type="number" min="0.01" step="0.01" placeholder="可留空"></label>
+            </div>
+          </div>
         </div>
         <div id="hometownFields" class="grid hidden"><label>重量（kg）<input id="hometownWeight" type="number" min="0.001" max="10" step="0.001" value="1"></label></div>
-        <p class="hint" id="parcelRuleHint">普通包裹优惠一次只能使用一种，不得叠加，也不得用于家乡包裹贴。</p>
+        <p class="hint" id="parcelRuleHint">普通包裹基础资费已含挂号；回执不另收挂号费。优惠只打基础寄递费，回执/保价等特别业务费不打折。</p>
+        <div class="special-section"><h3>包裹特别业务 <small>按当前寄件方式显示</small></h3><div id="parcelSpecials" class="special-list"></div></div>
         <button class="primary" id="calcParcel">查询资费</button>
         <div class="result" id="parcelResult"></div>
       </div>
@@ -54,21 +66,28 @@
       <h2>国际业务</h2>
       <div class="seg"><button class="scope active" data-scope="international">国际</button><button class="scope" data-scope="hmt">港澳台</button></div>
       <div id="intlFields" class="grid">
-        <label>业务<select id="intlService"></select></label>
-        <label>目的地<select id="intlDest"></select></label>
+        <label>邮件种类<select id="intlMailType"></select></label>
+        <label>运输方式<select id="intlTransport"></select></label>
+        <label class="autocomplete-label">目的地
+          <div class="autocomplete">
+            <input id="intlDestInput" type="text" autocomplete="off" placeholder="输入国家/地区名称或代码，如 英 / UK">
+            <div id="intlDestSuggestions" class="suggestions hidden"></div>
+          </div>
+        </label>
         <label id="intlWeightWrap">重量（克）<input id="intlWeight" type="number" min="0.1" step="0.1" value="20"></label>
       </div>
       <div id="hmtFields" class="grid hidden">
-        <label>业务<select id="hmtMail"></select></label>
+        <label>邮件种类<select id="hmtMail"></select></label>
         <label>目的地<select id="hmtDest"><option value="HK">香港</option><option value="MO">澳门</option><option value="TW">台湾</option></select></label>
         <label id="hmtWeightWrap">重量（克）<input id="hmtWeight" type="number" min="0.1" step="0.1" value="20"></label>
       </div>
       <div id="intlNotice" class="notice hidden"></div>
-      <div class="special-section"><h3>特别业务 <small>可选；有业务条件的海关费用仅展示，不自动勾选</small></h3><div id="intlSpecials" class="special-list"></div></div>
+      <div class="special-section"><h3>特别业务与资费公示 <small>可选项目参与计算；非交寄费用只展示</small></h3><div id="intlSpecials" class="special-list"></div></div>
       <button class="primary" id="calcIntl">查询资费</button>
       <div class="result" id="intlResult"></div>
     </div>
   </section>
+
   <p class="foot">资费数据为整理数据，仅供查询参考；实际收寄与收费以中国邮政最新规定为准。</p>
 </main>
 <script src="./assets/path-fix.js"></script>
