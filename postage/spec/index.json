@@ -1,21 +1,17 @@
 {
-  "schemaVersion": 6,
-  "standardVersion": "1.4.0",
+  "schemaVersion": 7,
+  "standardVersion": "1.5.0",
   "dataset": "China Post postage data specification",
   "status": "active",
   "appliesTo": ["domestic", "hong-kong-macau-taiwan", "international"],
   "files": {"core":"./core.json","pricing":"./pricing.json","notices":"./notices.json","validation":"./validation.json","specialServices":"./special-services.json"},
   "principles": [
-    "postage/index.json 是数据集总入口。",
-    "services.json 是寄递服务注册表。",
-    "rateCategory=delivery 表示基础寄递资费；rateCategory=special 表示特别业务资费。",
-    "scope 统一使用 domestic、hong-kong-macau-taiwan、international。",
-    "普通包裹优惠一次只能使用一种，不得叠加，也不得用于家乡包裹贴。",
-    "普通包裹8折/7折只作用于基础寄递资费；回执、保价等特别业务费用按原价另加。",
-    "普通包裹基础寄递资费已包含挂号属性，附回执时不另选或另收挂号费。",
-    "特别业务必须区分 selectable 与 display-only，并按 requires/includes/excludes 关系处理依赖、包含与互斥。",
-    "普通包裹体积重量按长×宽×高÷6000计算，并分别展示实重资费和泡重资费，以较高基础资费作为应计寄递资费。",
-    "国际目的地优先使用 ISO 3166-1 alpha-2；特殊邮政目的地使用 countryData.json 中的自定义 locale。"
+    "特别业务必须区分 selectable 与 display-only；display-only 只公示、排在列表底部、不参与计算。",
+    "特别业务交互必须执行 requiresRateIds、requiresAnyRateIds、includesRateIds、replacesRateIds、excludesRateIds，并支持反向级联取消。",
+    "普通包裹基础资费自带挂号，附回执不另收挂号费；家乡包裹贴不可回执。",
+    "普通包裹和家乡包裹贴保价费为保价金额1%，最高10万元。",
+    "函件保价只允许 LETTER，最高保价金额2万元。",
+    "普通包裹优惠只作用于基础寄递资费，保价/回执等特别业务费用不参与折扣。"
   ],
-  "changes": {"1.4.0":["新增特别业务 selection/applicability/dependencies 规则。","非交寄费用改为 display-only。","普通包裹基础资费已含挂号属性，回执不另收挂号费。","普通包裹可同时办理保价和回执；家乡包裹贴可保价但不可回执。","国内包裹保价费率未提供时不得套用函件保价费率。","普通包裹支持可选体积重量。","普通包裹优惠仅作用于基础寄递资费，特别业务费用不参与折扣。"]}
+  "changes": {"1.5.0":["新增 declared_value_percentage。","新增 requiresAnyRateIds 与 replacesRateIds。","新增复选框自动勾选、替代、禁用与反向级联取消。","仅公示项目统一放到底部且没有 checkbox。","函件保价上限2万元；国内包裹保价1%、上限10万元。"]}
 }
