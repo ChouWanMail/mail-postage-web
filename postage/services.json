@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 9,
-  "standardVersion": "1.3.0",
+  "schemaVersion": 10,
+  "standardVersion": "1.4.0",
   "transportMethods": [
     {"id":"AIR","nameZh":"航空","nameEn":"Air"},
     {"id":"SAL","nameZh":"空运水陆路（SAL）","nameEn":"Surface Air Lifted"},
