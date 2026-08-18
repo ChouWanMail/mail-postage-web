@@ -1,0 +1,25 @@
+{
+  "schemaVersion":4,"standardVersion":"1.3.0","purpose":"定义 App、脚本或 CI 在读取邮资数据前应执行的跨文件一致性检查。",
+  "checks":[
+    {"id":"INDEX-FILE-EXISTS","severity":"error","rule":"postage/index.json files 中的每个相对路径必须存在且可解析为 JSON。"},
+    {"id":"STANDARD-VERSION-CONSISTENT","severity":"error","rule":"核心入口必须使用兼容的 standardVersion。"},
+    {"id":"SERVICE-ID-UNIQUE","severity":"error","rule":"services.json services[].id 必须唯一。"},
+    {"id":"MAIL-TYPE-REGISTERED","severity":"error","rule":"每个 services[].mailType 必须存在于 mailTypes[].id。"},
+    {"id":"CURRENT-SERVICE-EXISTS","severity":"error","rule":"currentServices 的每个 id 必须存在于 services.json。"},
+    {"id":"SERVICE-RATE-FILE-EXISTS","severity":"error","rule":"services[].rateFile 必须存在。"},
+    {"id":"SERVICE-ZONE-FILE-EXISTS","severity":"error","rule":"存在 services[].zoneFile 时文件必须存在。"},
+    {"id":"ZONE-ID-RESOLVABLE","severity":"error","rule":"rate 文件引用的 zoneId 必须存在于对应 zoneFile。"},
+    {"id":"DOMESTIC-PROVINCE-COUNT","severity":"error","rule":"大陆省级行政区必须为31条且 id 唯一。"},
+    {"id":"DOMESTIC-ORDINARY-PARCEL-ORIGIN-FILE","severity":"error","rule":"ordinary-parcel/index.json 的每个 originFiles 路径必须存在，且 key 与 originRegionId 一致。"},
+    {"id":"DOMESTIC-ORDINARY-PARCEL-DESTINATION-UNIQUE","severity":"error","rule":"同一 destinationRegionId 在一个起寄省文件中只能出现一次。"},
+    {"id":"DOMESTIC-ORDINARY-PARCEL-BANDS","severity":"error","rule":"重量档必须为 <=10kg、>10kg<=20kg、>20kg<=50kg。"},
+    {"id":"DOMESTIC-HOMETOWN-INCLUSIVE-TIERS","severity":"error","rule":"家乡包裹贴必须匹配 <=1kg、>1kg<=3kg、>3kg<=5kg、>5kg<=10kg。"},
+    {"id":"ORDINARY-PARCEL-DISCOUNT-SCOPE","severity":"error","rule":"普通包裹优惠仅适用于 DOMESTIC_ORDINARY_PARCEL，并排除 DOMESTIC_HOMETOWN_PARCEL_STICKER。"},
+    {"id":"DISCOUNT-NO-STACK","severity":"error","rule":"普通包裹 combinationPolicy=single 且 maxCredentialsPerShipment=1。"},
+    {"id":"SPECIAL-NOTICE-RATE-ID","severity":"error","rule":"启用的 special notice specialRateId 必须存在于对应 rateFile。"},
+    {"id":"PRICING-TYPE-SUPPORTED","severity":"error","rule":"所有 pricing.type 或 pricingType 必须存在于 spec/pricing.json supportedTypes。"},
+    {"id":"ROUNDING-EXPLICIT","severity":"error","rule":"涉及不足计费单位时必须显式 rounding=ceil。"},
+    {"id":"FREE-EXPLICIT","severity":"error","rule":"免费项目必须显式 free 且 price=0。"}
+  ],
+  "recommendedReadOrder":["读取 postage/index.json。","读取 postage/spec/index.json。","读取 services.json 并选择 serviceId。","按需要加载行政区、zone、rate、special-rates 和 notices。","执行 error 级校验。"]
+}
