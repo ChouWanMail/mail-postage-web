@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 2,
+  "scope": "domestic",
+  "rateCategory": "delivery",
+  "currency": "CNY",
+  "weightUnit": "g",
+  "localityTypes": [{"id":"LOCAL","nameZh":"本埠","nameEn":"Local"},{"id":"NON_LOCAL","nameZh":"外埠","nameEn":"Non-local"}],
+  "mailTypes": {
+    "LETTER": {"pricingType":"tiered_incremental","maxWeight":2000,"rounding":"ceil","tiers":[{"fromWeightExclusive":0,"toWeight":100,"incrementWeight":20,"prices":{"LOCAL":0.8,"NON_LOCAL":1.2}},{"fromWeightExclusive":100,"toWeight":2000,"incrementWeight":100,"prices":{"LOCAL":1.2,"NON_LOCAL":2.0}}]},
+    "POSTCARD": {"pricingType":"flat","price":0.8,"per":"piece","sameForAllLocalities":true},
+    "PRINTED_MATTER": {"pricingType":"tiered_incremental","maxWeight":35000,"rounding":"ceil","tiers":[{"fromWeightExclusive":0,"toWeight":100,"incrementWeight":100,"prices":{"LOCAL":0.8,"NON_LOCAL":1.2}},{"fromWeightExclusive":100,"toWeight":35000,"incrementWeight":100,"prices":{"LOCAL":0.2,"NON_LOCAL":0.4}}]},
+    "LETTER_SHEET": {"pricingType":"flat_by_locality","per":"piece","prices":{"LOCAL":0.8,"NON_LOCAL":1.2},"nameZh":"邮简"},
+    "MILITARY_FREE_LETTER": {"pricingType":"free","price":0,"maxWeight":20,"nameZh":"义务兵免费信函"},
+    "LITERATURE_FOR_BLIND": {"pricingType":"free","price":0,"basicPostageExempt":true,"deliveryMethod":"ordinary-mail","noteZh":"盲人读物按平常邮件寄递，基本资费免费。"}
+  },
+  "notes":["本文件仅记录国内函件寄递基本资费，不包含挂号、约投、回执、保价、存局候领、撤回或改址等特别业务资费。"]
+}
