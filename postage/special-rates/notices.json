@@ -1,0 +1,24 @@
+{
+  "schemaVersion":4,
+  "description":"按资费范围、目的地和特别业务资费项目维护限制、服务、计费说明或自定义提示。App 应忽略 enabled=false 的记录。",
+  "supportedRateScopes":["international","domestic","hong-kong-macau-taiwan"],
+  "supportedTypes":["restriction","service","pricing","warning","info","custom"],
+  "supportedSeverities":["info","warning","error"],
+  "notices":[{
+    "enabled":true,
+    "id":"HMT-TW-ADVICE-OF-DELIVERY-UNAVAILABLE",
+    "scope":{"rateScope":"hong-kong-macau-taiwan","destination":"TW","specialRateId":"ADVICE_OF_DELIVERY_FEE"},
+    "type":"restriction","severity":"warning","title":"台湾暂不提供回执业务",
+    "message":"暂不收寄寄往台湾的附回执函件。港澳台回执费3.00元/件仅适用于香港和澳门，不适用于台湾。",
+    "metadata":{"available":false,"applicableDestinations":["HK","MO"],"excludedDestinations":["TW"]}
+  }],
+  "fieldGuide":{
+    "metadata.available":"明确业务是否可用。",
+    "metadata.applicableDestinations":"规则明确适用的目的地数组。",
+    "metadata.excludedDestinations":"规则明确排除的目的地数组。",
+    "metadata.mailTypes":"具体邮件类型数组。",
+    "metadata.applicableCategories":"业务大类数组，例如 LETTER_POST、PARCEL。",
+    "metadata.conditions":"附加条件数组。"
+  },
+  "examples":{}
+}
